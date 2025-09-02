@@ -1,239 +1,337 @@
 {
-  "swagger": "2.0",
-  "info": {
-    "title": "MeetingPal API",
-    "description": "This is my API documentation",
-    "version": "1.0"
-  },
-  "host": "localhost:5173",
-  "basePath": "/api/v1",
-  "tags": [
-    {
-      "name": "users",
-      "description": "Operations about users"
-    }
-  ],
-  "securityDefinitions": {
-    "bearerAuth": {
-      "type": "apiKey",
-      "name": "Authorization",
-      "in": "header",
-      "description": "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\""
-    }
-  },
-  "paths": {
-    "/auth/login": {
-      "post": {
-        "summary": "Login User",
-        "description": "Logs user in and generates an access token.",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "description": "User login credentials",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "email": { "type": "string" },
-                "password": { "type": "string" }
-              },
-              "required": ["email", "password"]
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "User found and returns token",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "message": { "type": "string" },
-                "accessToken": { "type": "string" }
-              }
-            }
-          },
-          "400": {
-            "description": "Client content error"
-          },
-          "401": {
-            "description": "Not authorized"
-          },
-          "404": {
-            "description": "User not found"
-          },
-          "500": {
-            "description": "Internal server error"
-          }
-        }
-      }
+    "swagger": "2.0",
+    "info": {
+        "title": "MeetingPal API",
+        "description": "This is the documentation for the MeetingPal API.",
+        "version": "1.0"
     },
-    "/meetings/[meetingId/attendees/[attendeeId]/make-call-admin": {
-      "post": {
-        "summary": "Make user admin on call.",
-        "description": "Make a user admin on the voice call for a meeting.",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "attendeeId": { "type": "string" },
-                "meetingId": { "type": "string" },
-                "makeAdmin": { "type": "boolean" }
-              },
-              "required": ["attendeeId", "meetingId", "makeAdmin"]
-            }
-          }
-        ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Attendee set as admin",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "message": { "type": "string" }
-              }
-            }
-          },
-          "400": {
-            "description": "Client content error"
-          },
-          "401": {
-            "description": "Not authorized"
-          },
-          "404": {
-            "description": "Not found"
-          },
-          "500": {
-            "description": "Internal server error"
-          }
-
+    "host": "localhost:5173",
+    "basePath": "/api/v1",
+    "securityDefinitions": {
+        "bearerAuth": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header",
+            "description": "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\""
         }
-      }
     },
-    "/meetings/[meetingId/attendees/[attendeeId]/add-to-panel": {
-      "post": {
-        "summary": "Adds a attendee to the panel.",
-        "description": "Adds an attendee to the panel in the meeting.",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "attendeeId": { "type": "string" },
-                "meetingId": { "type": "string" },
-                "addToPanel": { "type": "boolean" }
-              },
-              "required": ["attendeeId", "meetingId", "addToPanel"]
+    "paths": {
+        "/auth/login": {
+            "post": {
+                "summary": "Login User",
+                "description": "Logs user in and generates an access token.",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "User login credentials",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "email": { "type": "string" },
+                                "password": { "type": "string" }
+                            },
+                            "required": ["email", "password"]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User found and returns token",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" },
+                                "accessToken": { "type": "string" }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Client content error"
+                    },
+                    "401": {
+                        "description": "Not authorized"
+                    },
+                    "404": {
+                        "description": "User not found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
             }
-          }
-        ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Attendee added to the panel",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "message": { "type": "string" }
-              }
+        },
+        "/meetings/:meetingId/attendees/:attendeeId/make-call-admin": {
+            "patch": {
+                "summary": "Make/revoke attendee admin status on call.",
+                "description": "Make an attendee admin on the voice call for a meeting.",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "makeAdmin": { "type": "boolean" }
+                            },
+                            "required": ["makeAdmin"]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Attendee set as admin",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" }
+                            }
+                        }
+                    }
+                }
             }
-          },
-          "400": {
-            "description": "Client content error"
-          },
-          "401": {
-            "description": "Not authorized"
-          },
-          "404": {
-            "description": "Not found"
-          },
-          "500": {
-            "description": "Internal server error"
-          }
+        },
+        "/meetings/:meetingId/attendees/:attendeeId/add-to-panel": {
+            "patch": {
+                "summary": "Add/remove an attendee panel member status on video call.",
+                "description": "Add/remove an attendee panel member status on video call.",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "addToPanel": { "type": "boolean" }
+                            },
+                            "required": ["addToPanel"]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Attendee added to the panel",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/meetings/:meetingId/attendees/:attendeeId/suspensions": {
+            "get": {
+                "summary": "Get the suspension status of an attendee.",
+                "description": "Get the suspension statuses of an attendee.",
+                "responses": {
+                    "200": {
+                        "description": "Attendee suspension statuses",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" },
+                                "result": {
+                                    "type": "object",
+                                    "properties": {
+                                        "_id": { "type": "string" },
+                                        "suspended": { "type": "boolean" },
+                                        "special_suspended": { "type": "boolean" },
+                                        "unanimous_suspended": { "type": "boolean" },
+                                        "poll_suspended": { "type": "boolean" }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "summary": "Updates the suspension status of an attendee.",
+                "description": "Updates the suspension status of an attendee.",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "suspended": { "type": "boolean" },
+                                "special_suspended": { "type": "boolean" },
+                                "unanimous_suspended": { "type": "boolean" },
+                                "poll_suspended": { "type": "boolean" }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The suspension status of the attendee was updated",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/meetings/:meetingId/attendees/upload/suspensions": {
+            "post": {
+                "summary": "Upload suspensions.",
+                "description": "Upload suspensions via excel spreadsheet. This will update existing attendees, requires specific structure (row headers should have these titles: 'email', 'name', 'suspended', 'special', 'unanimous'), will not create attendees who have yet to be added.",
+                "consumes": ["multipart/form-data"],
+                "parameters": [
+                    {
+                        "in": "formData",
+                        "name": "file",
+                        "type": "file",
+                        "required": true,
+                        "description": "The Excel file to upload."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Attendees have been updated.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/meetings/:meetingId/units": {
+            "get": {
+                "summary": "Fetch meeting units.",
+                "description": "Fetches units from a meeting.",
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Limit amount of units returned in result.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32",
+                            "default": 10
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Pagination",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32",
+                            "default": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Units successfully fetched",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" },
+                                "result": {
+                                    "type": "object",
+                                    "properties": {
+                                        "units": { "type": "object" },
+                                        "limit": { "type": "integer" },
+                                        "page": { "type": "integer" }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/meetings/:meetingId": {
+            "get": {
+                "summary": "Fetch a meeting.",
+                "description": "Fetches a meeting.",
+                "responses": {
+                    "200": {
+                        "description": "Fetched the meeting successfully",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" },
+                                "result": {
+                                    "type": "object",
+                                    "properties": {
+                                        "meeting": { "type": "object" }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/meetings/:meetingId/attendees": {
+            "get": {
+                "summary": "Fetch meeting attendees.",
+                "description": "Fetches attendees from a meeting.",
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Limit amount of units returned in result.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32",
+                            "default": 10
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Pagination",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32",
+                            "default": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Attendee(s) successfully fetched",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" },
+                                "result": {
+                                    "type": "object",
+                                    "properties": {
+                                        "attendees": { "type": "object" },
+                                        "limit": { "type": "integer" },
+                                        "page": { "type": "integer" }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
-      }
-    },
-    "/meetings/[meetingId/attendees/[attendeeId]/suspensions": {
-      "post": {
-        "summary": "Updates the suspension status of an attendee.",
-        "description": "Updates the suspension status of an attendee/invitee.",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "attendeeId": { "type": "string" },
-                "meetingId": { "type": "string" },
-                "suspended": { "type": "boolean" },
-                "specia_suspended": { "type": "boolean" },
-                "unanimous_suspended": { "type": "boolean" },
-                "poll_suspended": { "type": "boolean" }
-              },
-              "required": ["attendeeId", "meetingId", "suspended", "specia_suspended", "unanimous_suspended", "poll_suspended"]
-            }
-          }
-        ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "The suspension status of the attendee was updated",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "message": { "type": "string" }
-              }
-            }
-          },
-          "400": {
-            "description": "Client content error"
-          },
-          "401": {
-            "description": "Not authorized"
-          },
-          "404": {
-            "description": "Not found"
-          },
-          "500": {
-            "description": "Internal server error"
-          }
-        }
-      }
     }
-  },
-
-  "definitions": {
-    "User": {
-      "type": "object",
-      "properties": {
-        "id": { "type": "integer" },
-        "name": { "type": "string" }
-      }
-    }
-  }
 }
