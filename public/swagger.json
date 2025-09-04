@@ -3,10 +3,10 @@
     "info": {
         "title": "MeetingPal API",
         "description": "This is the documentation for the MeetingPal API.",
-        "version": "1.0"
+        "version": "1.1"
     },
-    "host": "localhost:5173",
-    "basePath": "/api/v1",
+    "host": "api.meetingpal.app",
+    "basePath": "/",
     "securityDefinitions": {
         "bearerAuth": {
             "type": "apiKey",
@@ -18,6 +18,7 @@
     "paths": {
         "/auth/login": {
             "post": {
+                "tags": ["Auth"],
                 "summary": "Login User",
                 "description": "Logs user in and generates an access token.",
                 "parameters": [
@@ -62,77 +63,14 @@
                 }
             }
         },
-        "/meetings/:meetingId/attendees/:attendeeId/make-call-admin": {
-            "patch": {
-                "summary": "Make/revoke attendee admin status on call.",
-                "description": "Make an attendee admin on the voice call for a meeting.",
-                "parameters": [
-                    {
-                        "in": "body",
-                        "name": "body",
-                        "description": "",
-                        "required": true,
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "makeAdmin": { "type": "boolean" }
-                            },
-                            "required": ["makeAdmin"]
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Attendee set as admin",
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "message": { "type": "string" }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/meetings/:meetingId/attendees/:attendeeId/add-to-panel": {
-            "patch": {
-                "summary": "Add/remove an attendee panel member status on video call.",
-                "description": "Add/remove an attendee panel member status on video call.",
-                "parameters": [
-                    {
-                        "in": "body",
-                        "name": "body",
-                        "description": "",
-                        "required": true,
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "addToPanel": { "type": "boolean" }
-                            },
-                            "required": ["addToPanel"]
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Attendee added to the panel",
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "message": { "type": "string" }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/meetings/:meetingId/attendees/:attendeeId/suspensions": {
+        "/meetings/:meetingId": {
             "get": {
-                "summary": "Get the suspension status of an attendee.",
-                "description": "Get the suspension statuses of an attendee.",
+                "tags": ["Meetings"],
+                "summary": "Fetch a meeting.",
+                "description": "Fetches a meeting.",
                 "responses": {
                     "200": {
-                        "description": "Attendee suspension statuses",
+                        "description": "Fetched the meeting successfully",
                         "schema": {
                             "type": "object",
                             "properties": {
@@ -140,72 +78,9 @@
                                 "result": {
                                     "type": "object",
                                     "properties": {
-                                        "_id": { "type": "string" },
-                                        "suspended": { "type": "boolean" },
-                                        "special_suspended": { "type": "boolean" },
-                                        "unanimous_suspended": { "type": "boolean" },
-                                        "poll_suspended": { "type": "boolean" }
+                                        "meeting": { "type": "object" }
                                     }
                                 }
-                            }
-                        }
-                    }
-                }
-            },
-            "patch": {
-                "summary": "Updates the suspension status of an attendee.",
-                "description": "Updates the suspension status of an attendee.",
-                "parameters": [
-                    {
-                        "in": "body",
-                        "name": "body",
-                        "description": "",
-                        "required": true,
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "suspended": { "type": "boolean" },
-                                "special_suspended": { "type": "boolean" },
-                                "unanimous_suspended": { "type": "boolean" },
-                                "poll_suspended": { "type": "boolean" }
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "The suspension status of the attendee was updated",
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "message": { "type": "string" }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/meetings/:meetingId/attendees/upload/suspensions": {
-            "post": {
-                "summary": "Upload suspensions.",
-                "description": "Upload suspensions via excel spreadsheet. This will update existing attendees, requires specific structure (row headers should have these titles: 'email', 'name', 'suspended', 'special', 'unanimous'), will not create attendees who have yet to be added.",
-                "consumes": ["multipart/form-data"],
-                "parameters": [
-                    {
-                        "in": "formData",
-                        "name": "file",
-                        "type": "file",
-                        "required": true,
-                        "description": "The Excel file to upload."
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Attendees have been updated.",
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "message": { "type": "string" }
                             }
                         }
                     }
@@ -214,6 +89,7 @@
         },
         "/meetings/:meetingId/units": {
             "get": {
+                "tags": ["Units"],
                 "summary": "Fetch meeting units.",
                 "description": "Fetches units from a meeting.",
                 "parameters": [
@@ -261,31 +137,9 @@
                 }
             }
         },
-        "/meetings/:meetingId": {
-            "get": {
-                "summary": "Fetch a meeting.",
-                "description": "Fetches a meeting.",
-                "responses": {
-                    "200": {
-                        "description": "Fetched the meeting successfully",
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "message": { "type": "string" },
-                                "result": {
-                                    "type": "object",
-                                    "properties": {
-                                        "meeting": { "type": "object" }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
         "/meetings/:meetingId/attendees": {
             "get": {
+                "tags": ["Attendees"],
                 "summary": "Fetch meeting attendees.",
                 "description": "Fetches attendees from a meeting.",
                 "parameters": [
@@ -327,6 +181,194 @@
                                         "page": { "type": "integer" }
                                     }
                                 }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/meetings/:meetingId/attendees/upload/suspensions": {
+            "post": {
+                "tags": ["Attendees"],
+                "summary": "Upload suspensions.",
+                "description": "Upload suspensions via excel spreadsheet. This will update existing attendees, requires specific structure (row headers should have these titles: 'email', 'name', 'suspended', 'special', 'unanimous'), will not create attendees who have yet to be added.",
+                "consumes": ["multipart/form-data"],
+                "parameters": [
+                    {
+                        "in": "formData",
+                        "name": "file",
+                        "type": "file",
+                        "required": true,
+                        "description": "The Excel file to upload."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Attendees have been updated.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/meetings/:meetingId/attendees/:attendeeId/make-call-admin": {
+            "patch": {
+                "tags": ["Attendees"],
+                "summary": "Make/revoke attendee admin status on call.",
+                "description": "Make an attendee admin on the voice call for a meeting.",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "makeAdmin": { "type": "boolean" }
+                            },
+                            "required": ["makeAdmin"]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Attendee set as admin",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/meetings/:meetingId/attendees/:attendeeId/add-to-panel": {
+            "patch": {
+                "tags": ["Attendees"],
+                "summary": "Add/remove an attendee panel member status on video call.",
+                "description": "Add/remove an attendee panel member status on video call.",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "addToPanel": { "type": "boolean" }
+                            },
+                            "required": ["addToPanel"]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Attendee added to the panel",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/meetings/:meetingId/attendees/:attendeeId/suspensions": {
+            "get": {
+                "tags": ["Attendees"],
+                "summary": "Get the suspension status of an attendee.",
+                "description": "Get the suspension statuses of an attendee.",
+                "responses": {
+                    "200": {
+                        "description": "Attendee suspension statuses",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" },
+                                "result": {
+                                    "type": "object",
+                                    "properties": {
+                                        "_id": { "type": "string" },
+                                        "suspended": { "type": "boolean" },
+                                        "special_suspended": { "type": "boolean" },
+                                        "unanimous_suspended": { "type": "boolean" },
+                                        "poll_suspended": { "type": "boolean" }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "tags": ["Attendees"],
+                "summary": "Updates the suspension status of an attendee.",
+                "description": "Updates the suspension status of an attendee.",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "suspended": { "type": "boolean" },
+                                "special_suspended": { "type": "boolean" },
+                                "unanimous_suspended": { "type": "boolean" },
+                                "poll_suspended": { "type": "boolean" }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The suspension status of the attendee was updated",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/meetings/:meetingId/attendees/:attendeeId/set-physical": {
+            "patch": {
+                "tags": ["Attendees"],
+                "summary": "Add/remove an attendee as in physical attendance.",
+                "description": "Add/remove physical attendance status from an attendee.",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "physical": { "type": "boolean" }
+                            },
+                            "required": ["physical"]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Attendee added to the panel",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" }
                             }
                         }
                     }
