@@ -87,6 +87,56 @@
                 }
             }
         },
+        "/meetings/:meetingId/caller/configure-room": {
+            "patch": {
+                "tags": ["Caller"],
+                "summary": "Update room details",
+                "description": "This will update a caller session with new information.",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "allowAllToSeeRaisedHands": { "type": "boolean" }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully updated room data",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/meetings/:meetingId/caller/refresh": {
+            "post": {
+                "tags": ["Caller"],
+                "summary": "Trigger caller refresh",
+                "description": "This will trigger a caller room to refresh its data. Useful when data is not aligned with what is seen in MeetingPal.",
+                "responses": {
+                    "200": {
+                        "description": "Successfully requested refresh",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/meetings/:meetingId/units": {
             "get": {
                 "tags": ["Units"],
