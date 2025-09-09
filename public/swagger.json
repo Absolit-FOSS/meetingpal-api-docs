@@ -119,6 +119,44 @@
                 }
             }
         },
+        "/meetings/:meetingId/caller/set-status": {
+            "post": {
+                "tags": ["Caller"],
+                "summary": "Trigger call end or start",
+                "description": "This will end or start the meeting call.",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "pingCaller": {
+                                    "type": "boolean",
+                                    "description": "If true, then the voice caller will be sent a request, otherwise only MeetingPal will receive an update request."
+                                },
+                                "startCall": {
+                                    "type": "boolean",
+                                    "description": "If true, then the call will be restarted if it was ended."
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully requested call end",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/meetings/:meetingId/caller/refresh": {
             "post": {
                 "tags": ["Caller"],
