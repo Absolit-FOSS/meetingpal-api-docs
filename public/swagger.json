@@ -120,7 +120,7 @@
             }
         },
         "/meetings/:meetingId/caller/set-status": {
-            "post": {
+            "patch": {
                 "tags": ["Caller"],
                 "summary": "Trigger call end or start",
                 "description": "This will end or start the meeting call.",
@@ -158,7 +158,7 @@
             }
         },
         "/meetings/:meetingId/caller/refresh": {
-            "post": {
+            "patch": {
                 "tags": ["Caller"],
                 "summary": "Trigger caller refresh",
                 "description": "This will trigger a caller room to refresh its data. Useful when data is not aligned with what is seen in MeetingPal.",
