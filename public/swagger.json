@@ -462,6 +462,108 @@
                     }
                 }
             }
+        },
+        "/controllers/:meetingId/create-meeting": {
+            "post": {
+                "tags": ["Meetings"],
+                "summary": "Create a meeting.",
+                "description": "Create a new meeting.",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "description": { "type": "string" },
+                                "date": { "type": "Date" },
+                                "templateId": { "type": "string" },
+                                "invoiceId": { "type": "string" },
+                                "closeDate": { "type": "Date" }
+                            },
+                            "required": ["description", "date", "templateId", "invoiceId", "closeDate"]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "New meeting created successfully",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/controllers/:invoiceId/create-invoice": {
+            "post": {
+                "tags": ["Invoices"],
+                "summary": "Create a new invoice.",
+                "description": "Create a new invoice.",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "communitySchemeType": { "type": "string" },
+                                "meetingTitle": { "type": "Date" },
+                                "liveStreamEmbedEnabled": { "type": "string" },
+                                "whatsappEnabled": { "type": "string" },
+                                "zoomWindowEnabled": { "type": "Date" },
+                                "videoCallEnabled": { "type": "string" },
+                                "chairSupport": { "type": "Date" },
+                                "chatEnabled": { "type": "string" },
+                                "aiChatEnabled": { "type": "string" },
+                                "observersEnabled": { "type": "Date" },
+                                "setupSupport": { "type": "string" },
+                                "inPersonSupport": { "type": "Date" },
+                                "virtualSupport": { "type": "string" },
+                                "supportHours": { "type": "string" },
+                                "supportingPals": { "type": "Date" },
+                                "numberOfAttendees": { "type": "string" }
+                            },
+                            "required": [
+                                "communitySchemeType",
+                                "meetingTitle",
+                                "liveStreamEmbedEnabled",
+                                "whatsappEnabled",
+                                "zoomWindowEnabled",
+                                "videoCallEnabled",
+                                "chairSupport",
+                                "chatEnabled",
+                                "aiChatEnabled",
+                                "observersEnabled",
+                                "setupSupport",
+                                "inPersonSupport",
+                                "virtualSupport",
+                                "supportHours",
+                                "supportingPals",
+                                "numberOfAttendees"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "New invoice created  successfully",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
