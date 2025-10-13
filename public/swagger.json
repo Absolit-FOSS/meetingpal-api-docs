@@ -527,7 +527,7 @@
                 }
             }
         },
-        "/controllers/:meetingId/create-meeting": {
+        "/meetings/create": {
             "post": {
                 "tags": ["Meetings"],
                 "summary": "Create a meeting.",
@@ -542,10 +542,10 @@
                             "type": "object",
                             "properties": {
                                 "description": { "type": "string" },
-                                "date": { "type": "Date" },
+                                "date": { "type": "string" },
                                 "templateId": { "type": "string" },
                                 "invoiceId": { "type": "string" },
-                                "closeDate": { "type": "Date" }
+                                "closeDate": { "type": "string" }
                             },
                             "required": ["description", "date", "templateId", "invoiceId", "closeDate"]
                         }
@@ -557,14 +557,15 @@
                         "schema": {
                             "type": "object",
                             "properties": {
-                                "message": { "type": "string" }
+                                "message": { "type": "string" },
+                                "meetingId": { "type": "string" }
                             }
                         }
                     }
                 }
             }
         },
-        "/controllers/:invoiceId/create-invoice": {
+        "/invoices/create": {
             "post": {
                 "tags": ["Invoices"],
                 "summary": "Create a new invoice.",
@@ -578,22 +579,22 @@
                         "schema": {
                             "type": "object",
                             "properties": {
-                                "communitySchemeType": { "type": "string" },
-                                "meetingTitle": { "type": "Date" },
-                                "liveStreamEmbedEnabled": { "type": "string" },
-                                "whatsappEnabled": { "type": "string" },
-                                "zoomWindowEnabled": { "type": "Date" },
-                                "videoCallEnabled": { "type": "string" },
-                                "chairSupport": { "type": "Date" },
-                                "chatEnabled": { "type": "string" },
-                                "aiChatEnabled": { "type": "string" },
-                                "observersEnabled": { "type": "Date" },
+                                "communitySchemeType": { "type": "AvailableCommunitySchemeTypes" },
+                                "meetingTitle": { "type": "string" },
+                                "liveStreamEmbedEnabled": { "type": "boolean" },
+                                "whatsappEnabled": { "type": "boolean" },
+                                "zoomWindowEnabled": { "type": "boolean" },
+                                "videoCallEnabled": { "type": "boolean" },
+                                "chairSupport": { "type": "boolean" },
+                                "chatEnabled": { "type": "boolean" },
+                                "aiChatEnabled": { "type": "boolean" },
+                                "observersEnabled": { "type": "boolean" },
                                 "setupSupport": { "type": "string" },
-                                "inPersonSupport": { "type": "Date" },
-                                "virtualSupport": { "type": "string" },
-                                "supportHours": { "type": "string" },
-                                "supportingPals": { "type": "Date" },
-                                "numberOfAttendees": { "type": "string" }
+                                "inPersonSupport": { "type": "boolean" },
+                                "virtualSupport": { "type": "boolean" },
+                                "supportHours": { "type": "number" },
+                                "supportingPals": { "type": "boolean" },
+                                "numberOfAttendees": { "type": "number" }
                             },
                             "required": [
                                 "communitySchemeType",
@@ -622,7 +623,8 @@
                         "schema": {
                             "type": "object",
                             "properties": {
-                                "message": { "type": "string" }
+                                "message": { "type": "string" },
+                                "invoiceId": {"type": "string"}
                             }
                         }
                     }
