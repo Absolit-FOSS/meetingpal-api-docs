@@ -119,6 +119,70 @@
                 }
             }
         },
+        "/meetings/:meetingId/caller/enable-chat": {
+            "patch": {
+                "tags": ["Caller"],
+                "summary": "Enable or disable the caller chat",
+                "description": "Enable or disable the caller chat.",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "enable": { "type": "boolean" }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully updated caller data",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/meetings/:meetingId/caller/enable-qa": {
+            "patch": {
+                "tags": ["Caller"],
+                "summary": "Enable or disable the caller QA",
+                "description": "Enable or disable the caller question and answers section.",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "enable": { "type": "boolean" }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully updated caller data",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/meetings/:meetingId/caller/set-status": {
             "post": {
                 "tags": ["Caller"],
