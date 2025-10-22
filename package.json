@@ -7,8 +7,8 @@
         "preview": "vite preview"
     },
     "dependencies": {
-        "preact": "^10.26.9",
-        "swagger-ui-react": "^5.27.1"
+        "preact": "^10.27.2",
+        "swagger-ui-react": "^5.29.5"
     },
     "devDependencies": {
         "@preact/preset-vite": "^2.10.2",

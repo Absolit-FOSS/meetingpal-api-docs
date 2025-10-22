@@ -151,6 +151,38 @@
                 }
             }
         },
+        "/meetings/:meetingId/caller/enable-audio-fixer": {
+            "patch": {
+                "tags": ["Caller"],
+                "summary": "Enable or disable the caller audio fixer",
+                "description": "Enable or disable the caller audio fixer.",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "enable": { "type": "boolean" }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully updated caller data",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/meetings/:meetingId/caller/enable-qa": {
             "patch": {
                 "tags": ["Caller"],
@@ -624,7 +656,7 @@
                             "type": "object",
                             "properties": {
                                 "message": { "type": "string" },
-                                "invoiceId": {"type": "string"}
+                                "invoiceId": { "type": "string" }
                             }
                         }
                     }
