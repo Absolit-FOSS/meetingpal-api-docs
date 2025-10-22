@@ -579,7 +579,7 @@
                                 "invoiceId": { "type": "string" },
                                 "closeDate": { "type": "string" }
                             },
-                            "required": ["description", "date", "templateId", "invoiceId", "closeDate"]
+                            "required": ["description", "date", "invoiceId"]
                         }
                     }
                 ],
@@ -611,7 +611,7 @@
                         "schema": {
                             "type": "object",
                             "properties": {
-                                "communitySchemeType": { "type": "AvailableCommunitySchemeTypes" },
+                                "communitySchemeType": { "type": "string" },
                                 "meetingTitle": { "type": "string" },
                                 "liveStreamEmbedEnabled": { "type": "boolean" },
                                 "whatsappEnabled": { "type": "boolean" },
@@ -626,7 +626,17 @@
                                 "virtualSupport": { "type": "boolean" },
                                 "supportHours": { "type": "number" },
                                 "supportingPals": { "type": "boolean" },
-                                "numberOfAttendees": { "type": "number" }
+                                "numberOfAttendees": { "type": "number" },
+                                "billingAddress": { "type": "string" },
+                                "billingCity": { "type": "string" },
+                                "billingCountry": { "type": "string" },
+                                "billingPostCode": { "type": "string" },
+                                "complexName": { "type": "string" },
+                                "userEmail": { "type": "string" },
+                                "firstName": { "type": "string" },
+                                "lastName": { "type": "string" },
+                                "managingAgent": { "type": "string" },
+                                "forType": { "type": "string" }
                             },
                             "required": [
                                 "communitySchemeType",
