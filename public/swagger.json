@@ -3,7 +3,7 @@
     "info": {
         "title": "MeetingPal API",
         "description": "This is the documentation for the MeetingPal API.",
-        "version": "1.3"
+        "version": "1.0.5"
     },
     "host": "api.meetingpal.app",
     "basePath": "/",
