@@ -636,7 +636,8 @@
                                 "firstName": { "type": "string" },
                                 "lastName": { "type": "string" },
                                 "managingAgent": { "type": "string" },
-                                "forType": { "type": "string" }
+                                "forType": { "type": "string" },
+                                "testMeeting": { "type": "boolean" }
                             },
                             "required": [
                                 "communitySchemeType",
