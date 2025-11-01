@@ -3,7 +3,7 @@
     "info": {
         "title": "MeetingPal API",
         "description": "This is the documentation for the MeetingPal API.",
-        "version": "1.0.5"
+        "version": "1.0.6"
     },
     "host": "api.meetingpal.app",
     "basePath": "/",
@@ -81,6 +81,39 @@
                                         "meeting": { "type": "object" }
                                     }
                                 }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/meetings/:meetingId/venue/authenticate-code": {
+            "post": {
+                "tags": ["Meetings"],
+                "summary": "Authenticate a meeting venue code.",
+                "description": "Will return true if the code provided matches the meeting venue code.",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": { "type": "string", "description": "4 digit code" }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Match Success",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" },
+                                "match": { "type": "boolean" }
                             }
                         }
                     }
