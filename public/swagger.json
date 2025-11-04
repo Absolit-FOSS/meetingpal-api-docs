@@ -3,7 +3,7 @@
     "info": {
         "title": "MeetingPal API",
         "description": "This is the documentation for the MeetingPal API.",
-        "version": "1.0.6"
+        "version": "1.0.7"
     },
     "host": "api.meetingpal.app",
     "basePath": "/",
@@ -146,6 +146,30 @@
                             "type": "object",
                             "properties": {
                                 "message": { "type": "string" }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/meetings/:meetingId/caller/recording/status": {
+            "get": {
+                "tags": ["Caller", "Recording"],
+                "summary": "Get call recording status",
+                "description": "If the call is currently being recorded, the result would be true",
+                "responses": {
+                    "200": {
+                        "description": "Successfully fetch recording status",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" },
+                                "result": {
+                                    "type": "object",
+                                    "properties": {
+                                        "recording": { "type": "boolean" }
+                                    }
+                                }
                             }
                         }
                     }
