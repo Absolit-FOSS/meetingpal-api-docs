@@ -3,7 +3,7 @@
     "info": {
         "title": "MeetingPal API",
         "description": "This is the documentation for the MeetingPal API.",
-        "version": "1.0.7"
+        "version": "1.0.9"
     },
     "host": "api.meetingpal.app",
     "basePath": "/",
@@ -723,6 +723,56 @@
                             "properties": {
                                 "message": { "type": "string" },
                                 "invoiceId": { "type": "string" }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/:userId/manager": {
+            "patch": {
+                "tags": ["users"],
+                "summary": "Add manager to user account",
+                "description": "This will add a manager to a user account.",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "email": { "type": "string" }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully added new manager",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/:userId/manager/:managerId": {
+            "delete": {
+                "tags": ["users"],
+                "summary": "Remove manager from user account",
+                "description": "This will remove a manager from a user account.",
+                "responses": {
+                    "200": {
+                        "description": "Successfully removed manager",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" }
                             }
                         }
                     }
