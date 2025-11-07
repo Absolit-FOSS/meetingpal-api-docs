@@ -729,7 +729,7 @@
                 }
             }
         },
-        "/users/:userId/manager": {
+        "/users/:userId/managers": {
             "patch": {
                 "tags": ["users"],
                 "summary": "Add manager to user account",
@@ -761,7 +761,7 @@
                 }
             }
         },
-        "/users/:userId/manager/:managerId": {
+        "/users/:userId/managers/:managerId": {
             "delete": {
                 "tags": ["users"],
                 "summary": "Remove manager from user account",
