@@ -3,7 +3,7 @@
     "info": {
         "title": "MeetingPal API",
         "description": "This is the documentation for the MeetingPal API.",
-        "version": "1.0.9"
+        "version": "1.0.10"
     },
     "host": "api.meetingpal.app",
     "basePath": "/",
@@ -681,7 +681,6 @@
                                 "inPersonSupport": { "type": "boolean" },
                                 "virtualSupport": { "type": "boolean" },
                                 "supportHours": { "type": "number" },
-                                "supportingPals": { "type": "boolean" },
                                 "numberOfAttendees": { "type": "number" },
                                 "billingAddress": { "type": "string" },
                                 "billingCity": { "type": "string" },
@@ -709,7 +708,6 @@
                                 "inPersonSupport",
                                 "virtualSupport",
                                 "supportHours",
-                                "supportingPals",
                                 "numberOfAttendees"
                             ]
                         }
