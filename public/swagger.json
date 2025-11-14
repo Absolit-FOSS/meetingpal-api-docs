@@ -3,7 +3,7 @@
     "info": {
         "title": "MeetingPal API",
         "description": "This is the documentation for the MeetingPal API.",
-        "version": "1.0.10"
+        "version": "1.0.11"
     },
     "host": "api.meetingpal.app",
     "basePath": "/",
@@ -606,6 +606,40 @@
                 "responses": {
                     "200": {
                         "description": "Attendee added to the panel",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/meetings/:meetingId/attendees/:attendeeId/proxies": {
+            "post": {
+                "tags": ["Attendees", "Proxies"],
+                "summary": "Add proxy to attendee",
+                "description": "Will create a new proxy and proxy substitute for the attendee.",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "proxyId": { "type": "string" },
+                                "substituteId": { "type": "string" }
+                            },
+                            "required": ["proxyId"]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Proxy was created",
                         "schema": {
                             "type": "object",
                             "properties": {
