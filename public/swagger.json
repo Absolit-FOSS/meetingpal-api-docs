@@ -3,7 +3,7 @@
     "info": {
         "title": "MeetingPal API",
         "description": "This is the documentation for the MeetingPal API.",
-        "version": "1.0.11"
+        "version": "1.0.15"
     },
     "host": "api.meetingpal.app",
     "basePath": "/",
@@ -640,6 +640,93 @@
                 "responses": {
                     "200": {
                         "description": "Proxy was created",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/meetings/:meetingId/attendees/:attendeeId/proxies/:proxyId": {
+            "delete": {
+                "tags": ["Attendees", "Proxies"],
+                "summary": "Remove proxy holder from attendee",
+                "description": "This will remove the proxy holder (attendee who has received the proxy from this attendee) from an attendee",
+                "responses": {
+                    "200": {
+                        "description": "Proxy was cleared",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/meetings/:meetingId/attendees/:attendeeId/proxies/substitute": {
+            "post": {
+                "tags": ["Attendees", "Proxies"],
+                "summary": "Create proxy substitute for attendee",
+                "description": "Will create a new proxy substitute for the attendee (a substitute can be activated and will replace any current proxies during meetings).",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "substituteId": { "type": "string" }
+                            },
+                            "required": ["substituteId"]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Substitute was created",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/meetings/:meetingId/attendees/:attendeeId/proxies/substitute/:substituteId/": {
+            "delete": {
+                "tags": ["Attendees", "Proxies"],
+                "summary": "Delete proxy substitute for attendee",
+                "description": "Will delete the proxy substitute for the attendee.",
+                "responses": {
+                    "200": {
+                        "description": "Deletion was successful",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/meetings/:meetingId/attendees/:attendeeId/proxies/substitute/:substituteId/activate": {
+            "patch": {
+                "tags": ["Attendees", "Proxies"],
+                "summary": "Activate proxy substitute for attendee",
+                "description": "Will activate the proxy substitute for the attendee (this will replace any current proxy holders with the substitute).",
+                "responses": {
+                    "200": {
+                        "description": "Activation was successful",
                         "schema": {
                             "type": "object",
                             "properties": {
