@@ -3,7 +3,7 @@
     "info": {
         "title": "MeetingPal API",
         "description": "This is the documentation for the MeetingPal API.",
-        "version": "1.0.15"
+        "version": "1.0.18"
     },
     "host": "api.meetingpal.app",
     "basePath": "/",
@@ -670,7 +670,7 @@
         },
         "/meetings/:meetingId/attendees/:attendeeId/proxies/substitute": {
             "post": {
-                "tags": ["Attendees", "Proxies"],
+                "tags": ["Attendees", "Proxies", "Proxy Substitutes"],
                 "summary": "Create proxy substitute for attendee",
                 "description": "Will create a new proxy substitute for the attendee (a substitute can be activated and will replace any current proxies during meetings).",
                 "parameters": [
@@ -699,11 +699,9 @@
                         }
                     }
                 }
-            }
-        },
-        "/meetings/:meetingId/attendees/:attendeeId/proxies/substitute/:substituteId/": {
+            },
             "delete": {
-                "tags": ["Attendees", "Proxies"],
+                "tags": ["Attendees", "Proxies", "Proxy Substitutes"],
                 "summary": "Delete proxy substitute for attendee",
                 "description": "Will delete the proxy substitute for the attendee.",
                 "responses": {
@@ -721,9 +719,41 @@
         },
         "/meetings/:meetingId/attendees/:attendeeId/proxies/substitute/:substituteId/activate": {
             "patch": {
-                "tags": ["Attendees", "Proxies"],
+                "tags": ["Attendees", "Proxies", "Proxy Substitutes"],
                 "summary": "Activate proxy substitute for attendee",
                 "description": "Will activate the proxy substitute for the attendee (this will replace any current proxy holders with the substitute).",
+                "responses": {
+                    "200": {
+                        "description": "Activation was successful",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/meetings/:meetingId/proxies/substitutes/activate-all": {
+            "patch": {
+                "tags": ["Attendees", "Proxies", "Proxy Substitutes"],
+                "summary": "Activates all proxy substitutes for a meeting",
+                "description": "Will activate all proxy substitutes for the meeting. This will only target not joined attendees if specified in body.",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "unJoinedOnly": { "type": "boolean" }
+                            }
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Activation was successful",
