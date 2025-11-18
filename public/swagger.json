@@ -176,6 +176,30 @@
                 }
             }
         },
+        "/meetings/:meetingId/caller/recording/start": {
+            "post": {
+                "tags": ["Caller", "Recording"],
+                "summary": "Start caller recorder",
+                "description": "Start the caller recorder",
+                "responses": {
+                    "200": {
+                        "description": "Successfully started recording",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" },
+                                "result": {
+                                    "type": "object",
+                                    "properties": {
+                                        "recording": { "type": "boolean" }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/meetings/:meetingId/caller/enable-chat": {
             "patch": {
                 "tags": ["Caller"],
