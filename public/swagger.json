@@ -3,7 +3,7 @@
     "info": {
         "title": "MeetingPal API",
         "description": "This is the documentation for the MeetingPal API.",
-        "version": "1.0.18"
+        "version": "1.0.20"
     },
     "host": "api.meetingpal.app",
     "basePath": "/",
@@ -773,7 +773,8 @@
                         "schema": {
                             "type": "object",
                             "properties": {
-                                "unJoinedOnly": { "type": "boolean" }
+                                "unJoinedOnly": { "type": "boolean" },
+                                "clearAll": { "type": "boolean" }
                             }
                         }
                     }
@@ -781,6 +782,24 @@
                 "responses": {
                     "200": {
                         "description": "Activation was successful",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/meetings/:meetingId/proxies/substitutes/delete-all": {
+            "delete": {
+                "tags": ["Attendees", "Proxies", "Proxy Substitutes"],
+                "summary": "Clears all proxy substitutes for a meeting",
+                "description": "Will clear all proxy substitutes for the meeting.",
+                "responses": {
+                    "200": {
+                        "description": "Clear was successful",
                         "schema": {
                             "type": "object",
                             "properties": {
