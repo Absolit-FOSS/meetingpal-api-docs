@@ -3,7 +3,7 @@
     "info": {
         "title": "MeetingPal API",
         "description": "This is the documentation for the MeetingPal API.",
-        "version": "1.0.20"
+        "version": "1.0.21"
     },
     "host": "api.meetingpal.app",
     "basePath": "/",
@@ -452,9 +452,44 @@
                 }
             }
         },
+        "/meetings/:meetingId/attendees/suspend/unvetted": {
+            "patch": {
+                "tags": ["Attendees", "Suspensions"],
+                "summary": "Apply suspensions only to unvetted attendees",
+                "description": "Apply suspensions only to unvetted attendees",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "suspended": { "type": "boolean" },
+                                "special_suspended": { "type": "boolean" },
+                                "unanimous_suspended": { "type": "boolean" },
+                                "poll_suspended": { "type": "boolean" }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The suspension status of all unvetted attendees were updated",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/meetings/:meetingId/attendees/upload/suspensions": {
             "post": {
-                "tags": ["Attendees"],
+                "tags": ["Attendees", "Suspensions"],
                 "summary": "Upload suspensions.",
                 "description": "Upload suspensions via excel spreadsheet. This will update existing attendees, requires specific structure (row headers should have these titles: 'email', 'name', 'suspended', 'special', 'unanimous'), will not create attendees who have yet to be added.",
                 "consumes": ["multipart/form-data"],
@@ -548,7 +583,7 @@
         },
         "/meetings/:meetingId/attendees/:attendeeId/suspensions": {
             "get": {
-                "tags": ["Attendees"],
+                "tags": ["Attendees", "Suspensions"],
                 "summary": "Get the suspension status of an attendee.",
                 "description": "Get the suspension statuses of an attendee.",
                 "responses": {
