@@ -3,7 +3,7 @@
     "info": {
         "title": "MeetingPal API",
         "description": "This is the documentation for the MeetingPal API.",
-        "version": "1.0.21"
+        "version": "1.0.22"
     },
     "host": "api.meetingpal.app",
     "basePath": "/",
@@ -659,6 +659,39 @@
                                 "physical": { "type": "boolean" }
                             },
                             "required": ["physical"]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Attendee added to the panel",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/meetings/:meetingId/attendees/:attendeeId/manual-vote": {
+            "patch": {
+                "tags": ["Attendees"],
+                "summary": "Set attendee as remote or manual vote",
+                "description": "Set attendee as remote or manual vote",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "manual": { "type": "boolean" }
+                            },
+                            "required": ["manual"]
                         }
                     }
                 ],
