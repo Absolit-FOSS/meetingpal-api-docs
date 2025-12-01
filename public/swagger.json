@@ -916,6 +916,40 @@
                 }
             }
         },
+        "/meetings/create/pre-check": {
+            "post": {
+                "tags": ["Meetings"],
+                "summary": "Pre-check meeting creation data.",
+                "description": "Pre-check meeting creation data.",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "description": { "type": "string" },
+                                "date": { "type": "string" }
+                            },
+                            "required": ["date"]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Creation data has been verified",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/invoices/create": {
             "post": {
                 "tags": ["Invoices"],
