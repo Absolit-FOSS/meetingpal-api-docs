@@ -334,6 +334,102 @@
                 }
             }
         },
+        "/meetings/:meetingId/questions/:questionId": {
+            "patch": {
+                "tags": ["Questions"],
+                "summary": "Update a question in a meeting",
+                "description": "This will update a question.",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "noReasons": { "type": "array", "items": { "type": "string" } },
+                                "displayAgainstTotalVotes": { "type": "boolean" },
+                                "completedVoting": { "type": "boolean" },
+                                "countResultsWithAttending": { "type": "boolean" },
+                                "maxSelection": {
+                                    "type": "number",
+                                    "description": "Max number of options in a multi select the attendee may choose"
+                                },
+                                "showIgnoreAbstainCount": { "type": "boolean" },
+                                "useAbstainAs": {
+                                    "type": "string",
+                                    "$ref": "#/components/schemas/AvailableRDSUseAbstainAs"
+                                },
+                                "requireNoReasons": { "type": "boolean" },
+                                "unVotedAsAbstain": { "type": "boolean" },
+                                "specialCountAgainstVotes": { "type": "boolean" },
+                                "displayRankNumbers": { "type": "boolean" },
+                                "displayCount": { "type": "boolean" },
+                                "displayWeight": { "type": "boolean" },
+                                "sortByWeight": { "type": "boolean" },
+                                "dominantWeightByCount": { "type": "boolean" },
+                                "showSecondaryWeights": { "type": "boolean" },
+                                "itemsHaveImages": { "type": "boolean" },
+                                "itemsHasDescriptions": { "type": "boolean" },
+                                "countAllAsAttending": { "type": "boolean" },
+                                "countResultsAsUnits": { "type": "boolean" },
+                                "calculateDominantVotesBy": {
+                                    "type": "string",
+                                    "$ref": "#/components/schemas/AvailableDominantVoteCalculations"
+                                },
+                                "calculateDominantWeightsBy": {
+                                    "type": "string",
+                                    "$ref": "#/components/schemas/AvailableDominantWeightCalculations"
+                                },
+                                "buttons": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/MeetingQuestionButtonModel"
+                                },
+                                "groups": { "type": "array", "items": { "type": "string" } },
+                                "sortIndex": { "type": "number" },
+                                "description": { "type": "string" },
+                                "agendaItem": { "type": "string" },
+                                "hideAbstain": { "type": "boolean" },
+                                "votingOpen": { "type": "boolean" },
+                                "type": { "type": "boolean" },
+                                "resolutionType": {
+                                    "type": "string",
+                                    "$ref": "#/components/schemas/AvailableResolutionTypes"
+                                },
+                                "frozen": { "type": "boolean" },
+                                "label": { "type": "string" },
+                                "maxGraphItems": { "type": "number" },
+                                "textColors": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/MeetingQuestionColorModel"
+                                },
+                                "colors": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/MeetingQuestionColorModel"
+                                },
+                                "graphType": { "type": "boolean" },
+                                "options": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/MeetingQuestionOptionModel"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully requested refresh",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/meetings/:meetingId/caller/refresh": {
             "post": {
                 "tags": ["Caller"],
@@ -1070,6 +1166,97 @@
                             }
                         }
                     }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "AvailableRDSUseAbstainAs": {
+                "type": "string",
+                "enum": ["separate-count", "count-as-yes", "count-as-no", "ignore"]
+            },
+            "AvailableDominantVoteCalculations": {
+                "type": "string",
+                "enum": ["off", "specified", "joined", "all"]
+            },
+            "AvailableDominantWeightCalculations": {
+                "type": "string",
+                "enum": ["off", "specified", "joined", "all"]
+            },
+            "AvailableYesNoButtonIcons": {
+                "type": "string",
+                "enum": [
+                    "LikeOutlined",
+                    "DislikeOutlined",
+                    "CheckOutlined",
+                    "CheckCircleOutlined",
+                    "CloseOutlined",
+                    "StopOutlined",
+                    "PlusOutlined",
+                    "MinusOutlined",
+                    "MinusCircleOutlined",
+                    "SmileOutlined",
+                    "MehOutlined",
+                    "FrownOutlined",
+                    "DeleteOutlined",
+                    "CloseCircleOutlined"
+                ]
+            },
+            "AvailableResolutionTypes": {
+                "type": "string",
+                "enum": ["ordinary", "special", "unanimous", "poll", "other"]
+            },
+            "MeetingQuestionButtonItemModel": {
+                "type": "object",
+                "properties": {
+                    "text": { "type": "string" },
+                    "icon": {
+                        "type": "string",
+                        "$ref": "#/components/schemas/AvailableYesNoButtonIcons"
+                    }
+                }
+            },
+            "MeetingQuestionButtonModel": {
+                "type": "object",
+                "properties": {
+                    "yes": {
+                        "type": "object",
+                        "$ref": "#/components/schemas/MeetingQuestionButtonItemModel"
+                    },
+                    "no": {
+                        "type": "object",
+                        "$ref": "#/components/schemas/MeetingQuestionButtonItemModel"
+                    },
+                    "abstain": {
+                        "type": "object",
+                        "$ref": "#/components/schemas/MeetingQuestionButtonItemModel"
+                    }
+                }
+            },
+            "MeetingQuestionOptionModel": {
+                "type": "object",
+                "properties": {
+                    "_id": { "type": "string" },
+                    "label": { "type": "string" },
+                    "description": { "type": "string" },
+                    "index": { "type": "number" },
+                    "images": {
+                        "type": "object",
+                        "properties": {
+                            "_id": { "type": "string" },
+                            "url": { "type": "string" },
+                            "orderIndex": { "type": "number" }
+                        }
+                    }
+                }
+            },
+            "MeetingQuestionColorModel": {
+                "type": "object",
+                "properties": {
+                    "yes": { "type": "string" },
+                    "no": { "type": "string" },
+                    "abstain": { "type": "string" }
                 }
             }
         }
