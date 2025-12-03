@@ -3,7 +3,7 @@
     "info": {
         "title": "MeetingPal API",
         "description": "This is the documentation for the MeetingPal API.",
-        "version": "1.0.22"
+        "version": "1.0.25"
     },
     "host": "api.meetingpal.app",
     "basePath": "/",
@@ -382,23 +382,9 @@
                                     "type": "string",
                                     "$ref": "#/components/schemas/AvailableDominantWeightCalculations"
                                 },
-                                "buttons": {
-                                    "type": "object",
-                                    "$ref": "#/components/schemas/MeetingQuestionButtonModel"
-                                },
-                                "groups": { "type": "array", "items": { "type": "string" } },
-                                "sortIndex": { "type": "number" },
-                                "description": { "type": "string" },
-                                "agendaItem": { "type": "string" },
                                 "hideAbstain": { "type": "boolean" },
                                 "votingOpen": { "type": "boolean" },
-                                "type": { "type": "boolean" },
-                                "resolutionType": {
-                                    "type": "string",
-                                    "$ref": "#/components/schemas/AvailableResolutionTypes"
-                                },
                                 "frozen": { "type": "boolean" },
-                                "label": { "type": "string" },
                                 "maxGraphItems": { "type": "number" },
                                 "textColors": {
                                     "type": "object",
@@ -413,6 +399,52 @@
                                     "type": "object",
                                     "$ref": "#/components/schemas/MeetingQuestionOptionModel"
                                 }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully requested refresh",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/meetings/:meetingId/questions/:questionId/structure": {
+            "patch": {
+                "tags": ["Questions"],
+                "summary": "Update a question structure in a meeting",
+                "description": "This will update a question structure AND CLEAR VOTES.",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "buttons": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/MeetingQuestionButtonModel"
+                                },
+                                "groups": { "type": "array", "items": { "type": "string" } },
+                                "sortIndex": { "type": "number" },
+                                "description": { "type": "string" },
+                                "agendaItem": { "type": "string" },
+                                "type": { "type": "boolean" },
+                                "resolutionType": {
+                                    "type": "string",
+                                    "$ref": "#/components/schemas/AvailableResolutionTypes"
+                                },
+                                "frozen": { "type": "boolean" },
+                                "label": { "type": "string" }
                             }
                         }
                     }
