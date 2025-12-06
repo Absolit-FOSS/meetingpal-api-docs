@@ -3,7 +3,7 @@
     "info": {
         "title": "MeetingPal API",
         "description": "This is the documentation for the MeetingPal API.",
-        "version": "1.0.25"
+        "version": "1.0.30"
     },
     "host": "api.meetingpal.app",
     "basePath": "/",
@@ -578,6 +578,70 @@
                         }
                     }
                 }
+            },
+            "post": {
+                "tags": ["Attendees"],
+                "summary": "Create an attendee.",
+                "description": "Creates an attendee for a meeting",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "email": { "type": "string" },
+                                "name": { "type": "string" },
+                                "chatMuted": { "type": "boolean" },
+                                "vetted": { "type": "boolean" },
+                                "callerName": { "type": "boolean" },
+                                "dominantWeight": { "type": "boolean" },
+                                "dominantWeightValue": { "type": "number" },
+                                "dominantWeightVotes": { "type": "number" },
+                                "overachiever": { "type": "boolean" },
+                                "overachieverWeight": { "type": "number" },
+                                "owner": { "type": "string" },
+                                "cell": { "type": "string" },
+                                "backupCell": { "type": "string" },
+                                "observer": { "type": "boolean" },
+                                "manualVote": { "type": "boolean" },
+                                "suspended": { "type": "boolean" },
+                                "specialSuspended": { "type": "boolean" },
+                                "unanimousSuspended": { "type": "boolean" },
+                                "pollSuspended": { "type": "boolean" },
+                                "idMissingSuspended": { "type": "boolean" },
+                                "admin": { "type": "boolean" },
+                                "panelMember": { "type": "boolean" },
+                                "callPinned": { "type": "boolean" },
+                                "customData": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/CustomAttendeeDataModel"
+                                }
+                            },
+                            "required": ["name", "email"]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Attendee successfully created",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" },
+                                "result": {
+                                    "type": "object",
+                                    "properties": {
+                                        "_id": { "type": "string" },
+                                        "token": { "type": "string" }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         },
         "/meetings/:meetingId/attendees/suspend/unvetted": {
@@ -595,9 +659,10 @@
                             "type": "object",
                             "properties": {
                                 "suspended": { "type": "boolean" },
-                                "special_suspended": { "type": "boolean" },
-                                "unanimous_suspended": { "type": "boolean" },
-                                "poll_suspended": { "type": "boolean" }
+                                "specialSuspended": { "type": "boolean" },
+                                "unanimousSuspended": { "type": "boolean" },
+                                "pollSuspended": { "type": "boolean" },
+                                "idMissingSuspended": { "type": "boolean" }
                             }
                         }
                     }
@@ -726,9 +791,10 @@
                                     "properties": {
                                         "_id": { "type": "string" },
                                         "suspended": { "type": "boolean" },
-                                        "special_suspended": { "type": "boolean" },
-                                        "unanimous_suspended": { "type": "boolean" },
-                                        "poll_suspended": { "type": "boolean" }
+                                        "specialSuspended": { "type": "boolean" },
+                                        "unanimousSuspended": { "type": "boolean" },
+                                        "pollSuspended": { "type": "boolean" },
+                                        "idMissingSuspended": { "type": "boolean" }
                                     }
                                 }
                             }
@@ -750,9 +816,10 @@
                             "type": "object",
                             "properties": {
                                 "suspended": { "type": "boolean" },
-                                "special_suspended": { "type": "boolean" },
-                                "unanimous_suspended": { "type": "boolean" },
-                                "poll_suspended": { "type": "boolean" }
+                                "specialSuspended": { "type": "boolean" },
+                                "unanimousSuspended": { "type": "boolean" },
+                                "pollSuspended": { "type": "boolean" },
+                                "idMissingSuspended": { "type": "boolean" }
                             }
                         }
                     }
@@ -1289,6 +1356,13 @@
                     "yes": { "type": "string" },
                     "no": { "type": "string" },
                     "abstain": { "type": "string" }
+                }
+            },
+            "CustomAttendeeDataModel": {
+                "type": "object",
+                "properties": {
+                    "_id": { "type": "string" },
+                    "value": { "type": "string" }
                 }
             }
         }
