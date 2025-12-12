@@ -3,7 +3,7 @@
     "info": {
         "title": "MeetingPal API",
         "description": "This is the documentation for the MeetingPal API.",
-        "version": "1.0.30"
+        "version": "1.0.33"
     },
     "host": "api.meetingpal.app",
     "basePath": "/",
@@ -120,6 +120,51 @@
                 }
             }
         },
+        "/meetings/:meetingId/caller": {
+            "patch": {
+                "tags": ["Caller"],
+                "summary": "Update caller settings",
+                "description": "This will update the caller settings.",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "allowFullScreen": { "type": "boolean" },
+                                "allowFullScreenFocusFeed": { "type": "boolean" },
+                                "allowHidePanelists": { "type": "boolean" },
+                                "allowHideButtons": { "type": "boolean" },
+                                "adminOnly": { "type": "boolean" },
+                                "showFixCallButton": { "type": "boolean" },
+                                "endedMessage": { "type": "string" },
+                                "enabled": { "type": "boolean" },
+                                "password": { "type": "string" },
+                                "showWelcomePage": { "type": "boolean" },
+                                "allowAllOnCall": { "type": "boolean" },
+                                "endMeetingOnEndCall": { "type": "boolean" },
+                                "enableChat": { "type": "boolean" },
+                                "enableQA": { "type": "boolean" }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully updated caller settings",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/meetings/:meetingId/caller/configure-room": {
             "patch": {
                 "tags": ["Caller"],
@@ -202,9 +247,10 @@
         },
         "/meetings/:meetingId/caller/enable-chat": {
             "patch": {
-                "tags": ["Caller"],
+                "deprecated": true,
+                "tags": ["Caller", "Deprecated"],
                 "summary": "Enable or disable the caller chat",
-                "description": "Enable or disable the caller chat.",
+                "description": "Use PATCH /meetings/:meetingId/caller instead. Will be removed in next version.",
                 "parameters": [
                     {
                         "in": "body",
@@ -234,9 +280,10 @@
         },
         "/meetings/:meetingId/caller/enable-audio-fixer": {
             "patch": {
-                "tags": ["Caller"],
+                "deprecated": true,
+                "tags": ["Caller", "Deprecated"],
                 "summary": "Enable or disable the caller audio fixer",
-                "description": "Enable or disable the caller audio fixer.",
+                "description": "Use PATCH /meetings/:meetingId/caller instead. Will be removed in next version.",
                 "parameters": [
                     {
                         "in": "body",
@@ -266,9 +313,10 @@
         },
         "/meetings/:meetingId/caller/enable-qa": {
             "patch": {
-                "tags": ["Caller"],
+                "deprecated": true,
+                "tags": ["Caller", "Deprecated"],
+                "description": "Use PATCH /meetings/:meetingId/caller instead. Will be removed in next version.",
                 "summary": "Enable or disable the caller QA",
-                "description": "Enable or disable the caller question and answers section.",
                 "parameters": [
                     {
                         "in": "body",
