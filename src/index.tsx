@@ -7,7 +7,7 @@ import './style.css';
 const App: React.FC = () => {
     return (
         <div>
-            <SwaggerUI url="swagger.json" />
+            <SwaggerUI url="swagger.json" filter />
         </div>
     );
 };

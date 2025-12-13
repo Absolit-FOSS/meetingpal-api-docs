@@ -12,6 +12,7 @@
     },
     "devDependencies": {
         "@preact/preset-vite": "^2.10.2",
+        "@types/swagger-ui-react": "^5.18.0",
         "eslint": "^9.34.0",
         "eslint-config-preact": "^2.0.0",
         "typescript": "^5.9.2",
