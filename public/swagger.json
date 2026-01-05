@@ -1266,6 +1266,24 @@
                 }
             }
         },
+        "/invoices/:invoiceId/duplicate": {
+            "post": {
+                "tags": ["Invoices"],
+                "summary": "Duplicate an existing invoice",
+                "description": "Duplicate an existing invoice. NOTE: This endpoint has limited permissions.",
+                "responses": {
+                    "200": {
+                        "description": "New invoice created successfully",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "invoiceId": { "type": "string" }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/users/:userId/managers": {
             "patch": {
                 "tags": ["Users"],
