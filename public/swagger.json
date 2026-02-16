@@ -3,7 +3,7 @@
     "info": {
         "title": "MeetingPal API",
         "description": "This is the documentation for the MeetingPal API.",
-        "version": "1.0.33"
+        "version": "1.0.35"
     },
     "host": "api.meetingpal.app",
     "basePath": "/",
@@ -1259,6 +1259,56 @@
                             "type": "object",
                             "properties": {
                                 "message": { "type": "string" },
+                                "invoiceId": { "type": "string" }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/invoices/:invoiceId/accept-quote": {
+            "patch": {
+                "tags": ["Invoices"],
+                "summary": "Accept quote",
+                "description": "Accept a draft quote or quote.",
+                "responses": {
+                    "200": {
+                        "description": "Quote has been accepted",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "invoiceId": { "type": "string" }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/invoices/:invoiceId/decline-quote": {
+            "patch": {
+                "tags": ["Invoices"],
+                "summary": "Decline quote",
+                "description": "Decline a quote or revert a quote decline.",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "decline": { "type": "boolean", "default": true }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Quote has been declined",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
                                 "invoiceId": { "type": "string" }
                             }
                         }
