@@ -3,7 +3,7 @@
     "info": {
         "title": "MeetingPal API",
         "description": "This is the documentation for the MeetingPal API.",
-        "version": "1.0.35"
+        "version": "1.0.36"
     },
     "host": "api.meetingpal.app",
     "basePath": "/",
@@ -45,6 +45,51 @@
                             "properties": {
                                 "message": { "type": "string" },
                                 "accessToken": { "type": "string" }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Client content error"
+                    },
+                    "401": {
+                        "description": "Not authorized"
+                    },
+                    "404": {
+                        "description": "User not found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/auth/password/request-reset": {
+            "post": {
+                "tags": ["Auth"],
+                "summary": "Send request password reset email",
+                "description": "Send an email containing a password reset token",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "email": { "type": "string" }
+                            },
+                            "required": ["email"]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Token was been sent",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" }
                             }
                         }
                     },
