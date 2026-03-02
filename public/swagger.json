@@ -3,7 +3,7 @@
     "info": {
         "title": "MeetingPal API",
         "description": "This is the documentation for the MeetingPal API.",
-        "version": "1.0.36"
+        "version": "1.0.37"
     },
     "host": "api.meetingpal.app",
     "basePath": "/",
@@ -126,6 +126,44 @@
                                         "meeting": { "type": "object" }
                                     }
                                 }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/meetings/:meetingId/status": {
+            "patch": {
+                "tags": ["Meetings"],
+                "summary": "Change meeting status",
+                "description": "Updates the status of an existing meeting. `newDate` is optional and should be supplied only when the status changes to **Reschedule** or **Adjourned**. Note this action may have unintended effects (such as clearing votes), use with caution.",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                },
+                                "newDate": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": ["status"]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully updated the meeting status",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" }
                             }
                         }
                     }
