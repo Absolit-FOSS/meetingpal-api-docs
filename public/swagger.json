@@ -3,7 +3,7 @@
     "info": {
         "title": "MeetingPal API",
         "description": "This is the documentation for the MeetingPal API.",
-        "version": "1.0.37"
+        "version": "1.1.0"
     },
     "host": "api.meetingpal.app",
     "basePath": "/",
@@ -1411,6 +1411,28 @@
                             "type": "object",
                             "properties": {
                                 "invoiceId": { "type": "string" }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/emails/search": {
+            "get": {
+                "tags": ["Emails"],
+                "summary": "Search emails",
+                "description": "Search user emails account for emails (Bak)",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" },
+                                "result": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
                             }
                         }
                     }
