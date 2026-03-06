@@ -3,7 +3,7 @@
     "info": {
         "title": "MeetingPal API",
         "description": "This is the documentation for the MeetingPal API.",
-        "version": "1.1.0"
+        "version": "1.1.1"
     },
     "host": "api.meetingpal.app",
     "basePath": "/",
@@ -1219,7 +1219,6 @@
                             "type": "object",
                             "properties": {
                                 "description": { "type": "string" },
-                                "date": { "type": "string" },
                                 "templateId": { "type": "string" },
                                 "invoiceId": { "type": "string" },
                                 "closeDate": { "type": "string" }
@@ -1314,6 +1313,7 @@
                                 "lastName": { "type": "string" },
                                 "managingAgent": { "type": "string" },
                                 "forType": { "type": "string" },
+                                "meetingDate": { "type": "string" },
                                 "testMeeting": { "type": "boolean" }
                             },
                             "required": [
