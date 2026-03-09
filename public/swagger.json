@@ -132,6 +132,60 @@
                 }
             }
         },
+        "/meetings/:meetingId/id/email/deny": {
+            "patch": {
+                "tags": ["Meetings", "Emails"],
+                "summary": "Update deny email content",
+                "description": "Update deny email content",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "email": {
+                                    "type": "array",
+                                    "items": { "$ref": "#/components/schemas/EmailParagraph" }
+                                }
+                            },
+                            "required": []
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/meetings/:meetingId/id/email/deny/send": {
+            "post": {
+                "tags": ["Meetings", "Emails"],
+                "summary": "Send ID denied emails",
+                "description": "Send ID denied emails",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/meetings/:meetingId/status": {
             "patch": {
                 "tags": ["Meetings"],
@@ -1584,6 +1638,34 @@
                     "_id": { "type": "string" },
                     "value": { "type": "string" }
                 }
+            },
+            "EmailParagraph": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": ["paragraph"]
+                    },
+                    "children": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": { "text": { "type": "string" } },
+                            "required": ["text"]
+                        }
+                    }
+                },
+                "required": ["type", "children"]
+            },
+            "EmailBody": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "array",
+                        "items": { "$ref": "#/components/schemas/EmailParagraph" }
+                    }
+                },
+                "required": ["email"]
             }
         }
     }
