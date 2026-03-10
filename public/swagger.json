@@ -3,7 +3,7 @@
     "info": {
         "title": "MeetingPal API",
         "description": "This is the documentation for the MeetingPal API.",
-        "version": "1.1.2"
+        "version": "1.1.5"
     },
     "host": "api.meetingpal.app",
     "basePath": "/",
@@ -126,6 +126,102 @@
                                         "meeting": { "type": "object" }
                                     }
                                 }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/meetings/:meetingId/invite/email": {
+            "patch": {
+                "tags": ["Meetings", "Emails"],
+                "summary": "Update invite email content",
+                "description": "Update invite email content",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "subject": {
+                                    "type": "string"
+                                },
+                                "email": {
+                                    "type": "array",
+                                    "items": { "$ref": "#/components/schemas/EmailParagraph" }
+                                }
+                            },
+                            "required": []
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/meetings/:meetingId/unvoted/email": {
+            "patch": {
+                "tags": ["Meetings", "Emails"],
+                "summary": "Update unvoted email content",
+                "description": "Update unvoted email content",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "subject": {
+                                    "type": "string"
+                                },
+                                "email": {
+                                    "type": "array",
+                                    "items": { "$ref": "#/components/schemas/EmailParagraph" }
+                                }
+                            },
+                            "required": []
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/meetings/:meetingId/unvoted/email/send": {
+            "post": {
+                "tags": ["Meetings", "Emails"],
+                "summary": "Send unvoted emails",
+                "description": "Send emails to those who have not voted yet",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" }
                             }
                         }
                     }
