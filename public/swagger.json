@@ -3,7 +3,7 @@
     "info": {
         "title": "MeetingPal API",
         "description": "This is the documentation for the MeetingPal API.",
-        "version": "1.1.5"
+        "version": "1.1.9"
     },
     "host": "api.meetingpal.app",
     "basePath": "/",
@@ -132,11 +132,11 @@
                 }
             }
         },
-        "/meetings/:meetingId/invite/email": {
+        "/meetings/:meetingId/settings/login/messages": {
             "patch": {
-                "tags": ["Meetings", "Emails"],
-                "summary": "Update invite email content",
-                "description": "Update invite email content",
+                "tags": ["Meetings"],
+                "summary": "Update meeting login page messages",
+                "description": "Update meeting login page messages",
                 "parameters": [
                     {
                         "in": "body",
@@ -146,10 +146,11 @@
                         "schema": {
                             "type": "object",
                             "properties": {
-                                "subject": {
-                                    "type": "string"
+                                "loginMessage": {
+                                    "type": "array",
+                                    "items": { "$ref": "#/components/schemas/EmailParagraph" }
                                 },
-                                "email": {
+                                "loginDisabledMessage": {
                                     "type": "array",
                                     "items": { "$ref": "#/components/schemas/EmailParagraph" }
                                 }
@@ -925,6 +926,45 @@
                 }
             }
         },
+        "/meetings/:meetingId/attendees/email": {
+            "patch": {
+                "tags": ["Meetings", "Attendees", "Emails"],
+                "summary": "Update invite email content",
+                "description": "Update invite email content",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "subject": {
+                                    "type": "string"
+                                },
+                                "email": {
+                                    "type": "array",
+                                    "items": { "$ref": "#/components/schemas/EmailParagraph" }
+                                }
+                            },
+                            "required": []
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/meetings/:meetingId/attendees/suspend/unvetted": {
             "patch": {
                 "tags": ["Attendees", "Suspensions"],
@@ -983,6 +1023,48 @@
                             "type": "object",
                             "properties": {
                                 "message": { "type": "string" }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/meetings/:meetingId/attendees/:attendeeId/email/send": {
+            "post": {
+                "tags": ["Attendees", "Emails"],
+                "summary": "Send attendee invite email",
+                "description": "Send attendee invite email",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/meetings/:meetingId/attendees/:attendeeId/token": {
+            "post": {
+                "tags": ["Attendees", "Tokens"],
+                "summary": "Create a new attendee token",
+                "description": "Create a new attendee token. If the attendee already has a token, this will return the existing token.",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" },
+                                "result": {
+                                    "type": "object",
+                                    "properties": {
+                                        "token": { "type": "string" }
+                                    }
+                                }
                             }
                         }
                     }
