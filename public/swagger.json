@@ -321,6 +321,76 @@
                 }
             }
         },
+        "/meetings/:meetingId/agendas/:agendaId/sort": {
+            "patch": {
+                "tags": ["Meetings", "Agendas"],
+                "summary": "Change sort index of agenda item",
+                "description": "Updates the sort index of an agenda item (will update other items indexes in the process)",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "index": {
+                                    "type": "number"
+                                }
+                            },
+                            "required": ["index"]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/meetings/:meetingId/agendas/:agendaId/resolutions/:resolutionId/sort": {
+            "patch": {
+                "tags": ["Meetings", "Agendas", "Resolutions"],
+                "summary": "Change sort index of resolution",
+                "description": "Updates the sort index of a resolution item (will update other resolution indexes in the process)",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "index": {
+                                    "type": "number"
+                                }
+                            },
+                            "required": ["index"]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/meetings/:meetingId/venue/authenticate-code": {
             "post": {
                 "tags": ["Meetings"],
