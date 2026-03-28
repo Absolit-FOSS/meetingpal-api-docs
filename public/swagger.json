@@ -483,7 +483,8 @@
                         "schema": {
                             "type": "object",
                             "properties": {
-                                "allowAllToSeeRaisedHands": { "type": "boolean" }
+                                "allowAllToSeeRaisedHands": { "type": "boolean" },
+                                "allowRaisingHands": { "type": "boolean" }
                             }
                         }
                     }
