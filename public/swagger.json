@@ -321,6 +321,52 @@
                 }
             }
         },
+        "/meetings/:meetingId/chat": {
+            "patch": {
+                "tags": ["Meetings"],
+                "summary": "Update meeting chat settings",
+                "description": "Update chat settings for a meeting",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "enableQuestionAndAnswers": {
+                                    "type": "boolean",
+                                    "description": "Enable Q&A feature"
+                                },
+                                "allowGlobalChat": {
+                                    "type": "boolean",
+                                    "description": "Allow global chat for all attendees"
+                                },
+                                "allowDirectMessaging": {
+                                    "type": "boolean",
+                                    "description": "Allow cross-communication/direct messaging between attendees"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully updated chat settings",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Client content error - invalid field value"
+                    }
+                }
+            }
+        },
         "/meetings/:meetingId/agendas/:agendaId/sort": {
             "patch": {
                 "tags": ["Meetings", "Agendas"],
