@@ -3,10 +3,139 @@
     "info": {
         "title": "MeetingPal API",
         "description": "This is the documentation for the MeetingPal API.",
-        "version": "1.1.10"
+        "version": "1.1.15"
     },
     "host": "api.meetingpal.app",
     "basePath": "/",
+    "definitions": {
+        "CustomEditorText": {
+            "type": "object",
+            "properties": {
+                "text": { "type": "string" },
+                "bold": { "type": "boolean" },
+                "italic": { "type": "boolean" },
+                "strikeThrough": { "type": "boolean" },
+                "textColor": { "type": "string" },
+                "textHighlightColor": { "type": "string" },
+                "variable": { "type": "boolean" },
+                "font": { "type": "string" },
+                "fontSize": { "type": "number" },
+                "comment": { "type": "boolean" },
+                "width": { "type": "number" },
+                "height": { "type": "number" },
+                "radius": { "type": "number" },
+                "code": { "type": "boolean" },
+                "link": { "type": "string" }
+            },
+            "required": ["text"]
+        },
+        "EditorTh": {
+            "type": "object",
+            "properties": {
+                "type": { "type": "string", "enum": ["headerCell"] },
+                "rowSpan": { "type": "number" },
+                "colSpan": { "type": "number" },
+                "children": {
+                    "type": "array",
+                    "items": { "$ref": "#/definitions/CustomEditorElement" }
+                }
+            },
+            "required": ["type", "children"]
+        },
+        "EditorTd": {
+            "type": "object",
+            "properties": {
+                "type": { "type": "string", "enum": ["tableCell"] },
+                "rowSpan": { "type": "number" },
+                "colSpan": { "type": "number" },
+                "children": {
+                    "type": "array",
+                    "items": { "$ref": "#/definitions/CustomEditorElement" }
+                }
+            },
+            "required": ["type", "children"]
+        },
+        "EditorTr": {
+            "type": "object",
+            "properties": {
+                "type": { "type": "string", "enum": ["tableRow"] },
+                "children": {
+                    "type": "array",
+                    "items": { "oneOf": [{ "$ref": "#/definitions/EditorTd" }, { "$ref": "#/definitions/EditorTh" }] }
+                }
+            },
+            "required": ["type", "children"]
+        },
+        "EditorTableHead": {
+            "type": "object",
+            "properties": {
+                "type": { "type": "string", "enum": ["tableHead"] },
+                "children": {
+                    "type": "array",
+                    "items": { "$ref": "#/definitions/EditorTr" }
+                }
+            },
+            "required": ["type", "children"]
+        },
+        "EditorTableBody": {
+            "type": "object",
+            "properties": {
+                "type": { "type": "string", "enum": ["tableBody"] },
+                "children": {
+                    "type": "array",
+                    "items": { "$ref": "#/definitions/EditorTr" }
+                }
+            },
+            "required": ["type", "children"]
+        },
+        "EditorTableFooter": {
+            "type": "object",
+            "properties": {
+                "type": { "type": "string", "enum": ["tableFooter"] },
+                "children": {
+                    "type": "array",
+                    "items": { "$ref": "#/definitions/EditorTr" }
+                }
+            },
+            "required": ["type", "children"]
+        },
+        "CustomEditorElementBase": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "enum": [
+                        "paragraph",
+                        "code",
+                        "table",
+                        "button",
+                        "section",
+                        "divider",
+                        "image",
+                        "markdown",
+                        "orderedList",
+                        "unorderedList"
+                    ]
+                },
+                "children": {
+                    "type": "array",
+                    "items": { "$ref": "#/definitions/CustomEditorText" }
+                }
+            },
+            "required": ["type", "children"]
+        },
+        "CustomEditorElement": {
+            "oneOf": [
+                { "$ref": "#/definitions/CustomEditorElementBase" },
+                { "$ref": "#/definitions/EditorTableHead" },
+                { "$ref": "#/definitions/EditorTableBody" },
+                { "$ref": "#/definitions/EditorTableFooter" },
+                { "$ref": "#/definitions/EditorTr" },
+                { "$ref": "#/definitions/EditorTh" },
+                { "$ref": "#/definitions/EditorTd" }
+            ]
+        }
+    },
     "securityDefinitions": {
         "bearerAuth": {
             "type": "apiKey",
@@ -148,11 +277,11 @@
                             "properties": {
                                 "loginMessage": {
                                     "type": "array",
-                                    "items": { "$ref": "#/components/schemas/EmailParagraph" }
+                                    "items": { "$ref": "#/definitions/CustomEditorElement" }
                                 },
                                 "loginDisabledMessage": {
                                     "type": "array",
-                                    "items": { "$ref": "#/components/schemas/EmailParagraph" }
+                                    "items": { "$ref": "#/definitions/CustomEditorElement" }
                                 }
                             },
                             "required": []
@@ -191,7 +320,7 @@
                                 },
                                 "email": {
                                     "type": "array",
-                                    "items": { "$ref": "#/components/schemas/EmailParagraph" }
+                                    "items": { "$ref": "#/definitions/CustomEditorElement" }
                                 }
                             },
                             "required": []
@@ -835,7 +964,10 @@
                                 },
                                 "groups": { "type": "array", "items": { "type": "string" } },
                                 "sortIndex": { "type": "number" },
-                                "description": { "type": "string" },
+                                "description": {
+                                    "type": "array",
+                                    "items": { "$ref": "#/definitions/CustomEditorElement" }
+                                },
                                 "agendaItem": { "type": "string" },
                                 "type": { "type": "boolean" },
                                 "resolutionType": {
@@ -1567,7 +1699,10 @@
                         "schema": {
                             "type": "object",
                             "properties": {
-                                "description": { "type": "string" },
+                                "description": {
+                                    "type": "array",
+                                    "items": { "$ref": "#/definitions/CustomEditorElement" }
+                                },
                                 "templateId": { "type": "string" },
                                 "invoiceId": { "type": "string" },
                                 "closeDate": { "type": "string" }
