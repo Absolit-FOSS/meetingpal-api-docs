@@ -3,7 +3,7 @@
     "info": {
         "title": "MeetingPal API",
         "description": "This is the documentation for the MeetingPal API.",
-        "version": "1.1.16"
+        "version": "1.1.17"
     },
     "host": "api.meetingpal.app",
     "basePath": "/",
@@ -1935,11 +1935,95 @@
                 }
             }
         },
-        "/emails/search": {
+        "/emails/mailbox/{mailboxId}/search": {
             "get": {
                 "tags": ["Emails"],
+                "summary": "Search mailbox emails",
+                "description": "Search emails in a specific mailbox",
+                "parameters": [
+                    {
+                        "name": "mailboxId",
+                        "in": "path",
+                        "description": "Mailbox ID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "messageId",
+                        "in": "query",
+                        "description": "Filter by message ID",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "userWdId",
+                        "in": "query",
+                        "description": "Filter by user WD ID",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "meetingId",
+                        "in": "query",
+                        "description": "Filter by meeting ID",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Max results to return",
+                        "required": false,
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 100,
+                        "default": 10
+                    },
+                    {
+                        "name": "next",
+                        "in": "query",
+                        "description": "Pagination next cursor",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "previous",
+                        "in": "query",
+                        "description": "Pagination previous cursor",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Search query string",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": { "type": "string" },
+                                "result": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/emails/search": {
+            "get": {
+                "deprecated": true,
+                "tags": ["Emails", "Deprecated"],
                 "summary": "Search emails",
-                "description": "Search user emails account for emails (Bak)",
+                "description": "[DEPRECATED] Use GET /emails/mailbox/{mailboxId}/search instead. Search user emails account for emails",
                 "responses": {
                     "200": {
                         "description": "Success",
